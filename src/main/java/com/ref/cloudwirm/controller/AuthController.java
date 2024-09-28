@@ -2,6 +2,7 @@ package com.ref.cloudwirm.controller;
 
 import com.ref.cloudwirm.domain.User;
 import com.ref.cloudwirm.service.UserService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,11 @@ public class AuthController {
         this.userService = userService;
     }
 
+    @GetMapping("/")
+    public String index(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("user", user);
+        return "index";
+    }
     @GetMapping("/registration")
     public String showRegistrationForm(Model model) {
         User user = new User();
