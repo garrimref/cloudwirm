@@ -13,13 +13,13 @@
     </a>
 </header>
 
-<main class="form-signin w-100 m-auto">
-    <form th:action="@{/login}" method="post">
+<main class="form-login w-100 m-auto">
+    <form th:action="@{/user/login}" method="post">
         <h1 class="h3 mb-3 fw-normal">Login</h1>
 
         <div class="form-floating">
             <input type="text" class="form-control" placeholder="Username" id="username" name="username">
-            <label for="username">login</label>
+            <label for="username">Username</label>
 
             <div class="form-floating">
                 <input type="password" class="form-control" id="password" placeholder="Password" name="password">
@@ -31,7 +31,7 @@
 
             <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
             <span>Not registered?
-                      <a th:href="@{/registration}">Register here</a>
+                      <a th:href="@{/user/registration}">Register here</a>
                   </span>
         </div>
     </form>

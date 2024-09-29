@@ -20,14 +20,18 @@ public class WebSecConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/images/**", "/css/**", "/js/**","/registration").permitAll()
+                        .requestMatchers("/images/**", "/css/**", "/js/**","/user/registration").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                        .loginPage("/login")
+                        .loginPage("/user/login")
                         .permitAll()
                 )
-                .logout(LogoutConfigurer::permitAll);
+                .logout((logout) -> logout
+                        .logoutUrl("/user/logout")
+                        .logoutSuccessUrl("/user/login?logout")
+                        .permitAll()
+                );
 
         return http.build();
     }

@@ -1,4 +1,4 @@
-package com.cloudwirm.cloudwirm;
+package com.ref.cloudwirm;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
