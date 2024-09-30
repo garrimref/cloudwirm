@@ -13,6 +13,12 @@
   </a>
 </header>
 
+<div th:if="${param.success}">
+    <div class="alert alert-success" role="alert">
+        <p><h3>Registration successful!</h3></p>
+    </div>
+</div>
+<div class="alert alert-danger my-3" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"></div>
 <main class="form-signup w-100 m-auto">
     <form th:action="@{/user/registration}" enctype="multipart/form-data" th:object="${user}" method="post">
         <h1 class="h3 mb-3 fw-normal">Registration</h1>
@@ -21,14 +27,22 @@
             <input type="text" class="form-control" id="username" placeholder="Username" name="username" th:field="*{username}">
             <label for="username">Username</label>
         </div>
-        <div class="alert alert-danger my-3" role="alert" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
-        </div>
+
+        <div class="alert alert-danger my-3" role="alert" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+
         <div class="form-floating">
             <input type="password" class="form-control" id="password" placeholder="Password" name="password" th:field="*{password}">
             <label for="password">Password</label>
         </div>
+
+        <div class="alert alert-danger my-3" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+
         <br>
         <button class="btn btn-primary w-100 py-2" type="submit">Sign up</button>
+
+        <span>Return to login?
+            <a th:href="@{/user/login}">Login</a>
+        </span>
     </form>
 </main>
 
