@@ -20,7 +20,7 @@
 </div>
 <div class="alert alert-danger my-3" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"></div>
 <main class="form-signup w-100 m-auto">
-    <form th:action="@{/user/registration}" enctype="multipart/form-data" th:object="${user}" method="post">
+    <form th:action="@{/user/register}" enctype="multipart/form-data" th:object="${user}" method="post">
         <h1 class="h3 mb-3 fw-normal">Registration</h1>
 
         <div class="form-floating">
