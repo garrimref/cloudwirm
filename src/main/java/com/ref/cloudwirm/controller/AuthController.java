@@ -1,7 +1,11 @@
 package com.ref.cloudwirm.controller;
 
 import com.ref.cloudwirm.domain.User;
+import com.ref.cloudwirm.dto.UserDto;
+import com.ref.cloudwirm.exception.UserAlreadyExistException;
 import com.ref.cloudwirm.service.UserService;
+import jakarta.validation.Valid;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,23 +30,27 @@ public class AuthController {
         model.addAttribute("user", user);
         return "index";
     }
-    @GetMapping("/registration")
+    @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        return "auth/registration";
+        model.addAttribute("user", new UserDto());
+        return "auth/register";
     }
 
-    @PostMapping("/registration")
-    public String registration(@ModelAttribute("user") User user,
-                               BindingResult bindingResult,
-                               Model model) {
+    @PostMapping("/register")
+    public String register(@ModelAttribute("user") @Valid UserDto userDto,
+                           BindingResult bindingResult,
+                           Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("user", user);
-            return "auth/registration";
+            return "auth/register";
         }
-        userService.saveUser(user);
-        return "redirect:/user/login";
+        try {
+            userService.saveUser(userDto);
+            return "redirect:/user/registration?success";
+        } catch (UserAlreadyExistException uaeE) {
+            model.addAttribute("errorMessage", uaeE.getMessage());
+            return "auth/register";
+        }
+
     }
 
     @GetMapping("/login")

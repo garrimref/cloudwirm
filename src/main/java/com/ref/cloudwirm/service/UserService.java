@@ -1,6 +1,9 @@
 package com.ref.cloudwirm.service;
 
+import com.ref.cloudwirm.domain.Role;
 import com.ref.cloudwirm.domain.User;
+import com.ref.cloudwirm.dto.UserDto;
+import com.ref.cloudwirm.exception.UserAlreadyExistException;
 import com.ref.cloudwirm.repos.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,8 +11,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -19,13 +24,16 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username);
-    }
-
-    public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public void saveUser(UserDto userDto) {
+        if (userRepository.findByUsername(userDto.getUsername()) != null) {
+            throw new UserAlreadyExistException("There is an account with that username address: "
+                    + userDto.getUsername());
+        }
+        User user = new User(
+                userDto.getUsername(),
+                passwordEncoder.encode(userDto.getPassword()),
+                Set.of(Role.USER)
+        );
         userRepository.save(user);
     }
 }
