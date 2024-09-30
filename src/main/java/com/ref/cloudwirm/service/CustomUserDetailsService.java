@@ -2,7 +2,6 @@ package com.ref.cloudwirm.service;
 
 import com.ref.cloudwirm.domain.User;
 import com.ref.cloudwirm.repos.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
