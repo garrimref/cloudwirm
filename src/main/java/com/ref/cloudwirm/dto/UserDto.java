@@ -10,7 +10,7 @@ public class UserDto {
     private String username;
 
     @NotBlank(message = "Password is required and cannot be blank.")
-    @Size(min = 6, message = "Password must be at least 6 characters")
+    @Size(min = 4, message = "Password must be at least 4 characters")
     private String password;
 
     public UserDto() {
@@ -21,8 +21,16 @@ public class UserDto {
         this.password = password;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getUsername() {
         return username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPassword() {

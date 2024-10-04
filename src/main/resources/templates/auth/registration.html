@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:style="http://www.w3.org/1999/xhtml">
 <head>
     <title>Registration</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,39 +13,33 @@
   </a>
 </header>
 
-<div th:if="${param.success}">
-    <div class="alert alert-success" role="alert">
-        <p><h3>Registration successful!</h3></p>
-    </div>
-</div>
-<div class="alert alert-danger my-3" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"></div>
 <main class="form-signup w-100 m-auto">
-    <form th:action="@{/user/register}" enctype="multipart/form-data" th:object="${user}" method="post">
+    <form th:action="@{/user/registration}" enctype="multipart/form-data" th:object="${user}" method="post">
         <h1 class="h3 mb-3 fw-normal">Registration</h1>
+        <div class="alert alert-danger my-3" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"></div>
 
         <div class="form-floating">
             <input type="text" class="form-control" id="username" placeholder="Username" name="username" th:field="*{username}">
             <label for="username">Username</label>
         </div>
-
-        <div class="alert alert-danger my-3" role="alert" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
-
+        <div class="alert alert-danger my-3" role="alert" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+        </div>
         <div class="form-floating">
             <input type="password" class="form-control" id="password" placeholder="Password" name="password" th:field="*{password}">
             <label for="password">Password</label>
         </div>
-
         <div class="alert alert-danger my-3" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-
         <br>
         <button class="btn btn-primary w-100 py-2" type="submit">Sign up</button>
-
-        <span>Return to login?
-            <a th:href="@{/user/login}">Login</a>
-        </span>
     </form>
 </main>
-
+<div th:if="${param.success}">
+    <div class="alert alert-success m-auto my-3" role="alert" style="width: 500px">
+        <h3>Registration successful!</h3>
+        <br>
+        <h4>Return to <a th:href="@{/user/login}">Login</a> Page!</h4>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
