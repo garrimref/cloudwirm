@@ -23,6 +23,13 @@ services:
     volumes:
       - minio_storage:/data
 
+  redis:
+    image: redis
+    restart: always
+    command: redis-server
+    ports:
+      - '6379:6379'
+
 volumes:
   mysql-data:
   minio_storage:
