@@ -1,6 +1,5 @@
 package com.ref.cloudwirm.controller;
 
-import com.ref.cloudwirm.domain.User;
 import com.ref.cloudwirm.dto.UserDto;
 import com.ref.cloudwirm.exception.UserAlreadyExistException;
 import com.ref.cloudwirm.service.UserService;

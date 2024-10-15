@@ -1,4 +1,4 @@
-package com.ref.cloudwirm.service;
+package com.ref.cloudwirm.service.security;
 
 import com.ref.cloudwirm.domain.User;
 import com.ref.cloudwirm.repos.UserRepository;
