@@ -7,11 +7,8 @@
 </head>
 <body>
 
-<header class="d-flex flex-wrap justify-content-center py-3 mb-4 mx-2 border-bottom">
-  <a th:href="@{/}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-    <span class="fs-4">Cloudwirm Storage</span>
-  </a>
-</header>
+<div th:replace="fragments/header :: header"></div>
+
 
 <main class="form-signup w-100 m-auto">
     <form th:action="@{/user/registration}" enctype="multipart/form-data" th:object="${user}" method="post">
