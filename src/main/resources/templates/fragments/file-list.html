@@ -1,0 +1,29 @@
+<div th:fragment="file-list">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col" class="text-right">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="file : ${files}">
+      <td th:text="${file.name}">File Name</td>
+      <td class="text-right">
+        <button class="btn btn-danger btn-sm" th:onclick="'/delete?path=' + ${file.path}">Delete</button>
+        <button class="btn btn-secondary btn-sm" th:onclick="'/rename?path=' + ${file.path}">Rename</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<!--<ul class="list-group">
+    <li class="list-group-item" th:each="file : ${files}">
+        <span th:if="${file.isDir()()}" class="font-weight-bold">
+            <a th:href="@{/{path}(path=${file.getFileName()})}" th:text="${file.getFileName()}">
+            </a>
+        </span>
+        <span th:if="${!file.isDir()}" th:text="${file.getFileName()}">
+        </span>
+    </li>
+</ul> -->

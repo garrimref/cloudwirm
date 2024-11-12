@@ -7,6 +7,9 @@ public abstract class S3Request {
         this.ownerId = ownerId;
     }
 
+    public S3Request() {
+    }
+
     public Long getOwnerId() {
         return ownerId;
     }

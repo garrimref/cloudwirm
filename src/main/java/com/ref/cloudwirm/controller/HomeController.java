@@ -1,10 +1,11 @@
 package com.ref.cloudwirm.controller;
 
 import com.ref.cloudwirm.domain.User;
+import com.ref.cloudwirm.dto.S3PersistFileObjectRequest;
 import com.ref.cloudwirm.repos.UserRepository;
 import com.ref.cloudwirm.service.FileStorageService;
 import com.ref.cloudwirm.service.FolderStorageService;
-import com.ref.cloudwirm.service.UserService;
+import com.ref.cloudwirm.utils.BreadcrumbUtils;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -27,13 +28,16 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(@AuthenticationPrincipal UserDetails userDetails,
-                        @RequestParam(value = "path", required = false) String path,
+                        @RequestParam(value = "path", required = false, defaultValue = "") String path,
                         Model model) {
         User user = userRepository.findByUsername(userDetails.getUsername());
         model.addAttribute("username", user.getUsername());
-        model.addAttribute("path", path);
+        model.addAttribute("userId", user.getId());
+        model.addAttribute("breadcrumbsLinks", BreadcrumbUtils.getBreadcrumbLinks(path));
+        model.addAttribute("breadcrumbsNames", BreadcrumbUtils.getBreadcrumbNames(path));
         model.addAttribute("files", fileStorageService.getObjectsList(user.getId(), path, false));
 
+        model.addAttribute("filePersistRequest", new S3PersistFileObjectRequest());
         return "index";
     }
 }
