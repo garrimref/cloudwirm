@@ -10,7 +10,7 @@ This project is an educational exercise in backend development.
 - (In development) Search Functionality: Allows users to quickly search files based on name or metadata.
 - Deployment: Docker Compose integration for easy setup and deployment.
 
-## Technologies Used
+## Built with
 - Backend: Java, Spring Boot
 - Frontend: Thymeleaf, Bootstrap
 - Database: MySQL
