@@ -1,8 +1,7 @@
-# Multi-user Cloud Storage
+# Cloud File Storage
 
-MultiUser Cloud Storage is a simple cloud-based file storage service that enables users to upload and manage their files.
-Built using Java and Spring Boot, this project leverages a multi-user environment, ensuring each user has access to their own private storage space.
-This project is an educational exercise in backend development.
+Multi-user Cloud file Storage is a simple cloud-based file storage service that enables users to upload and manage their files.
+Built using Java and Spring Boot, this project provide a environment, ensuring each user has access to their own private storage space.
 
 ## Features
 - User Management: Handles user registration, login, and session management.
