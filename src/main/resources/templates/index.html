@@ -10,26 +10,28 @@
 <body class="container">
 
 <div th:replace="~{fragments/header :: header}"></div>
+<div class="d-flex mx-2 mb-3">
+    <div th:replace="~{fragments/breadcrumbs :: breadcrumbs(path=${path})}"></div>
 
-<div th:replace="~{fragments/breadcrumbs :: breadcrumbs(path=${path})}"></div>
-
-<div th:replace="~{fragments/file-list :: file-list}"></div>
-
-<div class="dropdown mb-3 mx-3">
-    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle='dropdown'
-            aria-haspopup="true" aria-expanded="false">Add+</button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <div class="dropdown-item">
-            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loadFile">Upload File</button>
-        </div>
-        <div class="dropdown-item">
-            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loadFolder">Upload Folder</button>
-        </div>
-        <div class="dropdown-item">
-            <button type="button" class="btn btn-light">Create a Folder</button>
+    <div class="dropdown">
+        <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle='dropdown'
+                aria-haspopup="true" aria-expanded="false">Add+</button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-item">
+                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loadFile">Upload File</button>
+            </div>
+            <div class="dropdown-item">
+                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loadFolder">Upload Folder</button>
+            </div>
+            <div class="dropdown-item">
+                <button type="button" class="btn btn-light">Create a Folder</button>
+            </div>
         </div>
     </div>
 </div>
+
+<div th:replace="~{fragments/file-list :: file-list}"></div>
+
 
 <div th:replace="~{fragments/upload-form :: upload-form}"></div>
 </body>
