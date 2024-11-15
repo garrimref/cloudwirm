@@ -25,11 +25,11 @@ public class FileStorageService  {
     }
     public void persistFile(S3PersistFileObjectRequest object) {
         MultipartFile file = object.getFile();
-        if (file.getName().isBlank()) {
+        if (file.getOriginalFilename().isBlank()) {
             throw new RuntimeException("File need to be named");
         }
         try {
-            String fileName = S3ObjectUtils.getUserRootFolderPrefix(object.getOwnerId()) + file.getName();
+            String fileName = S3ObjectUtils.getUserRootFolderPrefix(object.getOwnerId()) + file.getOriginalFilename();
             minioClient.putObject(
                     PutObjectArgs.builder()
                             .bucket(bucket)

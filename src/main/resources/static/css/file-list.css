@@ -1,0 +1,17 @@
+.table-fixed {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.col-flex {
+    width: 100%;
+}
+
+.col-min {
+    width: min-content;
+}
+.actions-cell {
+    display: flex;
+    gap: 0.5rem; /* Space between buttons */
+    white-space: nowrap; /* Prevent wrapping */
+}

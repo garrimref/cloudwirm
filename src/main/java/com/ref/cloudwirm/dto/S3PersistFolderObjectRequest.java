@@ -10,6 +10,9 @@ public class S3PersistFolderObjectRequest extends S3Request {
     @NotEmpty
     private List<MultipartFile> files;
 
+    public S3PersistFolderObjectRequest() {
+    }
+
     public S3PersistFolderObjectRequest(Long ownerId, List<MultipartFile> files) {
         super(ownerId);
         this.files = files;
