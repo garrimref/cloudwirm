@@ -1,8 +1,10 @@
 package com.ref.cloudwirm.controller;
 
 import com.ref.cloudwirm.domain.User;
+import com.ref.cloudwirm.dto.S3DeleteObjectRequest;
 import com.ref.cloudwirm.dto.S3PersistFileObjectRequest;
 import com.ref.cloudwirm.dto.S3PersistFolderObjectRequest;
+import com.ref.cloudwirm.dto.S3RenameObjectRequest;
 import com.ref.cloudwirm.repos.UserRepository;
 import com.ref.cloudwirm.service.FileStorageService;
 import com.ref.cloudwirm.service.FolderStorageService;
@@ -40,6 +42,9 @@ public class HomeController {
 
         model.addAttribute("filePersistRequest", new S3PersistFileObjectRequest());
         model.addAttribute("folderPersistRequest", new S3PersistFolderObjectRequest());
+
+        model.addAttribute("renameRequest", new S3RenameObjectRequest());
+        model.addAttribute("deleteRequest", new S3DeleteObjectRequest());
         return "index";
     }
 }
