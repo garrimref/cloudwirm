@@ -1,12 +1,12 @@
-<div class="d-flex me-auto" th:fragment="breadcrumbs(path)">
+<div class="d-flex me-auto" th:fragment="breadcrumbs">
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
         <a th:href="@{/}">Home</a>
       </li>
-      <li class="breadcrumb-item" th:if="${!breadcrumbsNames.isEmpty()}" th:each="item, iterStat : ${breadcrumbsLinks}">
-        <a th:href="@{/(path=${item})}"
-           th:text="${breadcrumbsNames.get(iterStat)}">
+      <li class="breadcrumb-item" th:if="${!breadcrumbsNames.isEmpty()}" th:each="link, iterStat : ${breadcrumbsLinks}">
+        <a th:href="${'/?path=' + link}"
+           th:text="${breadcrumbsNames[iterStat.index]}">
         </a>
       </li>
     </ol>

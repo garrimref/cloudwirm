@@ -2,12 +2,14 @@ package com.ref.cloudwirm.utils;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BreadcrumbUtilsTest {
 
     @Test
-    void getBreadcrumbElements_whenHaveBlankPath_thenHave0Size() {
+    void getBreadcrumbLinks_whenHaveBlankPath_thenHave0Size() {
         String path = "";
         var breadcrumbs = BreadcrumbUtils.getBreadcrumbLinks(path);
 
@@ -16,17 +18,13 @@ class BreadcrumbUtilsTest {
     }
 
     @Test
-    void getBreadcrumbElement_whenRegularPath_thenCorrect() {
+    void getBreadcrumbLinks_whenRegularPath_thenCorrect() {
         String path = "seria/s1/";
+        List<String> expected = List.of("seria/", "seria/s1/");
         var breadcrumbs = BreadcrumbUtils.getBreadcrumbLinks(path);
 
         assertEquals(2, breadcrumbs.size());
-        assertEquals(1, breadcrumbs.stream()
-                .filter(f -> f.equals("seria/"))
-                .count());
-        assertEquals(1, breadcrumbs.stream()
-                .filter(f -> f.equals("seria/s1/"))
-                .count());
+        assertLinesMatch(expected, breadcrumbs);
     }
 
     @Test
@@ -40,14 +38,10 @@ class BreadcrumbUtilsTest {
     @Test
     void getFoldersNames_whenRegularPath_thenCorrect() {
         String path = "seria/s1/";
+        List<String> expected = List.of("seria", "s1");
         var foldersNames = BreadcrumbUtils.getBreadcrumbNames(path);
 
         assertEquals(2, foldersNames.size());
-        assertEquals(1, foldersNames.stream()
-                .filter(f -> f.equals("seria"))
-                .count());
-        assertEquals(1, foldersNames.stream()
-                .filter(f -> f.equals("s1"))
-                .count());
+        assertLinesMatch(expected, foldersNames);
     }
 }
