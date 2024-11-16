@@ -7,17 +7,40 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="file : ${files}">
+    <!-- Folders -->
+    <tr th:each="file : ${files}" th:if="${file.isDir()}">
       <td>
-        <span th:if="${file.isDir()}" class="font-weight-bold">
-          <a th:href="@{/{path}(path=${file.getFileName()})}" th:text="${file.getFileName()}"></a>
-        </span>
-        <span th:if="${!file.isDir()}" th:text="${file.getFileName()}"></span>
+          <a class="text-decoration-none text-truncate" th:href="@{'/?path=' + ${file.getPath()}}" th:text="${file.getName()}"></a>
       </td>
+
       <td class="actions-cell">
+        <!--Rename-->
         <button class="btn btn-outline-info btn-sm" disabled>Rename</button>
         <button class="btn btn-outline-warning btn-sm" disabled>Download</button>
-        <button class="btn btn-outline-danger btn-sm" disabled>Delete</button>
+        <!--Delete-->
+        <form th:action="@{/folder}" th:method="delete" th:object="${deleteRequest}">
+          <input th:name="path" th:value="${file.getPath()}" type="hidden">
+          <input th:name="ownerId" th:value="${userId}" type="hidden"/>
+          <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+        </form>
+      </td>
+
+    </tr>
+    <!--Files-->
+    <tr th:each="file : ${files}" th:unless="${file.isDir()}">
+      <td>
+        <span class="text-truncate" th:text="${file.getName()}"></span>
+      </td>
+      <td class="actions-cell">
+        <!--Rename-->
+        <button class="btn btn-outline-info btn-sm" disabled>Rename</button>
+        <button class="btn btn-outline-warning btn-sm" disabled>Download</button>
+        <!--Delete-->
+        <form th:action="@{/file}" th:method="delete" th:object="${deleteRequest}">
+          <input th:name="path" th:value="${file.getPath()}" type="hidden">
+          <input th:name="ownerId" th:value="${userId}" type="hidden"/>
+          <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+        </form>
       </td>
     </tr>
     </tbody>
