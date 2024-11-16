@@ -1,18 +1,18 @@
 package com.ref.cloudwirm.controller;
 
+import com.ref.cloudwirm.dto.S3DeleteObjectRequest;
 import com.ref.cloudwirm.dto.S3PersistFileObjectRequest;
+import com.ref.cloudwirm.dto.S3RenameObjectRequest;
 import com.ref.cloudwirm.service.FileStorageService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
-@RequestMapping("/files")
+@RequestMapping("/file")
 public class FileController {
 
     private final FileStorageService fileService;
@@ -26,11 +26,37 @@ public class FileController {
                                     BindingResult bindingResult,
                                     RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            throw new RuntimeException("Problem with filepersist binding");
+            throw new RuntimeException("Problem with file persist binding");
         }
         fileService.persistFile(filePersistRequest);
 
         redirectAttributes.addFlashAttribute("success", "File uploaded successfully");
+        return new RedirectView("/");
+    }
+
+    @DeleteMapping
+    public RedirectView deleteFile(@Valid @ModelAttribute("deleteRequest")S3DeleteObjectRequest deleteObjectRequest,
+                                   BindingResult bindingResult,
+                                   RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            throw new RuntimeException("Problem with file delete binding");
+        }
+        fileService.deleteFile(deleteObjectRequest);
+
+        redirectAttributes.addFlashAttribute("success", "File deleted successfully");
+        return new RedirectView("/");
+    }
+
+    @PutMapping
+    public RedirectView renameFile(@Valid @ModelAttribute("objectRenameRequest") S3RenameObjectRequest renameObjectRequest,
+                                   BindingResult bindingResult,
+                                   RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            throw new RuntimeException("Problem with file rename binding");
+        }
+        fileService.renameFile(renameObjectRequest);
+
+        redirectAttributes.addFlashAttribute("success", "File renamed successfully");
         return new RedirectView("/");
     }
 }
