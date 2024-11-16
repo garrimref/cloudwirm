@@ -1,4 +1,5 @@
-<div th:fragment="upload-form">
+<div th:fragment="upload-modal">
+<!--File upload-->
 <div class="modal fade" id="loadFile" tabindex="-1" role="dialog" aria-labelledby="Load File" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -7,7 +8,7 @@
         <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
       </div>
       <div class="modal-body">
-        <form enctype="multipart/form-data" id="fileUploadForm" method="post" th:action="@{/files}"
+        <form enctype="multipart/form-data" id="fileUploadForm" method="post" th:action="@{/file}"
               th:object="${filePersistRequest}">
           <label class="form-label" for="fileUploadInput">Select file</label>
           <input class="form-control" id="fileUploadInput" th:field="*{file}" type="file"/>
@@ -15,28 +16,32 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" form="fileUploadForm" type="submit">Upload</button>
+        <button class="btn btn-outline-primary" form="fileUploadForm" type="submit">Upload</button>
       </div>
     </div>
   </div>
 </div>
+<!--Folder upload-->
 <div class="modal fade" id="loadFolder" tabindex="-1" role="dialog" aria-labelledby="Load File" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
+
       <div class="modal-header">
         <h5 class="modal-title" id="folderUploadModalTitle">File upload</h5>
         <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
       </div>
+
       <div class="modal-body">
-        <form enctype="multipart/form-data" id="folderUploadForm" method="post" th:action="@{/files}"
+        <form enctype="multipart/form-data" id="folderUploadForm" method="post" th:action="@{/folder}"
               th:object="${folderPersistRequest}">
           <label class="form-label" for="folderUploadInput">Select folder</label>
-          <input class="form-control" id="folderUploadInput" th:field="*{files}" type="file"/>
+          <input class="form-control" id="folderUploadInput" th:field="*{files}" type="file" webkitdirectory/>
           <input th:name="ownerId" th:value="${userId}" type="hidden"/>
         </form>
       </div>
+
       <div class="modal-footer">
-        <button class="btn btn-primary" form="fileUploadForm" type="submit">Upload</button>
+        <button class="btn btn-outline-primary" form="folderUploadForm" type="submit">Upload</button>
       </div>
     </div>
   </div>
