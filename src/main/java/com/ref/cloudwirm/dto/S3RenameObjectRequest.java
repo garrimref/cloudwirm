@@ -4,6 +4,8 @@ public class S3RenameObjectRequest extends S3Request{
     private String currentName;
     private String newName;
 
+    public S3RenameObjectRequest() {
+    }
     public S3RenameObjectRequest(Long ownerId, String currentName, String newName) {
         super(ownerId);
         this.currentName = currentName;
