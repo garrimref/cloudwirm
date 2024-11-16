@@ -10,11 +10,16 @@ public class S3ObjectUtils {
         return path.replace("user-" + userId + "-files/", "");
     }
 
-    public static String getFileNameFromPath(String path) {
-        StringBuilder fileName = new StringBuilder();
+    public static String getNameFromPath(String path) {
         if (path.endsWith("/")) {
-
+            path = path.substring(0, path.length() - 1);
         }
-        return "";
+
+        int lastSlashIndex = path.lastIndexOf("/");
+
+        if (lastSlashIndex == -1) {
+            return path;
+        }
+        return path.substring(lastSlashIndex + 1);
     }
 }
