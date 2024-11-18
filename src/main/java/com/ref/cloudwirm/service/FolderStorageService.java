@@ -46,7 +46,7 @@ public class FolderStorageService {
 
         List<DeleteObject> objects = new LinkedList<>();
         for (S3ObjectMetaData file : list) {
-            objects.add(new DeleteObject(getUserRootFolderPrefix(ownerId) + file.getFileName()));
+            objects.add(new DeleteObject(getUserRootFolderPrefix(ownerId) + file.getPath()));
         }
 
         Iterable<Result<DeleteError>> results =
@@ -73,8 +73,8 @@ public class FolderStorageService {
             fileStorageService.renameFile(
                     new S3RenameObjectRequest(
                             request.getOwnerId(),
-                            file.getFileName(),
-                            file.getFileName().replace(request.getCurrentName(), request.getNewName())
+                            file.getPath(),
+                            file.getPath().replace(request.getCurrentName(), request.getNewName())
                     ));
         }
 

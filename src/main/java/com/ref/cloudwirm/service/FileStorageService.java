@@ -87,8 +87,11 @@ public class FileStorageService  {
         results.forEach(result -> {
             try {
                 Item item = result.get();
+                String path = S3ObjectUtils.removeUserRootFolderPrefix(item.objectName(), userId);
+                String name = S3ObjectUtils.getNameFromPath(path);
                 s3objects.add(new S3ObjectMetaData(
-                        S3ObjectUtils.removeUserRootFolderPrefix(item.objectName(), userId),
+                        path,
+                        name,
                         item.isDir(),
                         folder));
             }
