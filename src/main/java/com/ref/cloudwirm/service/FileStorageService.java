@@ -59,15 +59,15 @@ public class FileStorageService  {
             minioClient.copyObject(
                     CopyObjectArgs.builder()
                             .bucket(bucket)
-                            .object(S3ObjectUtils.getUserRootFolderPrefix(request.getOwnerId()) + request.getNewName())
+                            .object(S3ObjectUtils.getUserRootFolderPrefix(request.getOwnerId()) + request.getNewPath())
                             .source(CopySource.builder()
                                             .bucket(bucket)
                                             .object(S3ObjectUtils.getUserRootFolderPrefix(request.getOwnerId())
-                                                    + request.getCurrentName())
+                                                    + request.getPath())
                                             .build())
                             .build());
 
-            S3DeleteObjectRequest removeObjectRequest = new S3DeleteObjectRequest(request.getOwnerId(), request.getCurrentName());
+            S3DeleteObjectRequest removeObjectRequest = new S3DeleteObjectRequest(request.getOwnerId(), request.getPath());
             deleteFile(removeObjectRequest);
         } catch (Exception e) {
             throw new RuntimeException("Failed to rename an Object", e);

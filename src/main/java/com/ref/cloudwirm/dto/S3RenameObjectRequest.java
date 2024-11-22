@@ -1,30 +1,30 @@
 package com.ref.cloudwirm.dto;
 
 public class S3RenameObjectRequest extends S3Request{
-    private String currentName;
-    private String newName;
+    private String path;
+    private String newPath;
 
     public S3RenameObjectRequest() {
     }
-    public S3RenameObjectRequest(Long ownerId, String currentName, String newName) {
+    public S3RenameObjectRequest(Long ownerId, String path, String newPath) {
         super(ownerId);
-        this.currentName = currentName;
-        this.newName = newName;
+        this.path = path;
+        this.newPath = newPath;
     }
 
-    public String getCurrentName() {
-        return currentName;
+    public String getPath() {
+        return path;
     }
 
-    public void setCurrentName(String currentName) {
-        this.currentName = currentName;
+    public void setPath(String path) {
+        this.path = path;
     }
 
-    public String getNewName() {
-        return newName;
+    public String getNewPath() {
+        return newPath;
     }
 
-    public void setNewName(String newName) {
-        this.newName = newName;
+    public void setNewPath(String newPath) {
+        this.newPath = newPath;
     }
 }

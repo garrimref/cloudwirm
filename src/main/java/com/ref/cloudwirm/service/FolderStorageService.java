@@ -68,17 +68,17 @@ public class FolderStorageService {
     }
 
     public void renameFolder(S3RenameObjectRequest request) {
-        List<S3ObjectMetaData> list = fileStorageService.getObjectsList(request.getOwnerId(), request.getCurrentName(), true);
+        List<S3ObjectMetaData> list = fileStorageService.getObjectsList(request.getOwnerId(), request.getPath(), true);
         for (S3ObjectMetaData file : list) {
             fileStorageService.renameFile(
                     new S3RenameObjectRequest(
                             request.getOwnerId(),
                             file.getPath(),
-                            file.getPath().replace(request.getCurrentName(), request.getNewName())
+                            file.getPath().replace(request.getPath(), request.getNewPath())
                     ));
         }
 
-        deleteFolder(new S3DeleteObjectRequest(request.getOwnerId(), request.getCurrentName()));
+        deleteFolder(new S3DeleteObjectRequest(request.getOwnerId(), request.getPath()));
     }
 
     private List<SnowballObject> mapFilesToSnowball(Long ownerId, List<MultipartFile> files) throws IOException {
