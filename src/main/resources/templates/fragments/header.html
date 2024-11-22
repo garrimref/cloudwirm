@@ -7,10 +7,10 @@
   <div class="d-flex align-items-center mb-md-0 me-md-auto" sec:authorize="isAuthenticated()">
     <div class="input-group">
       <form th:action="@{/search}" method="get" class="form-inline">
-        <input type="text" name="query" placeholder="Search" class="form-control">
+        <input type="text" name="query" placeholder="Search" class="form-control" disabled>
       </form>
       <div class="input-group-append">
-        <button type="submit" class="btn btn-outline-secondary">Search</button>
+        <button type="submit" class="btn btn-outline-secondary" disabled>Search</button>
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@
       </li>
       <li class="nav-item">
         <form th:action="@{/user/logout}" method="post">
-          <input class="btn btn-outline-danger" type="submit" value="Logout"/>
+          <input class="btn btn-outline-danger" type="button" value="Logout"/>
         </form>
       </li>
     </ul>

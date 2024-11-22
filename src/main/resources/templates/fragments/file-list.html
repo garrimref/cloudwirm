@@ -10,18 +10,39 @@
     <!-- Folders -->
     <tr th:each="file : ${files}" th:if="${file.isDir()}">
       <td>
-          <a class="text-decoration-none text-truncate" th:href="@{'/?path=' + ${file.getPath()}}" th:text="${file.getName()}"></a>
+        <div class="file-container">
+          <a class="text-decoration-none text-truncate file-name" th:href="@{'/?path=' + ${file.getPath()}}" th:text="${file.getName()}"></a>
+          <!-- Rename Input (Hidden by Default) -->
+          <form th:action="@{/folder}" th:method="put" th:object="${renameRequest}" class="rename-form w-75 d-none">
+            <div class="input-group">
+              <input type="text" th:name="newPath" th:value="${file.getPath()}" class="form-control rename-input"
+                     aria-label="Rename file">
+              <input th:name="path" th:value="${file.getPath()}" type="hidden">
+              <input th:name="ownerId" th:value="${userId}" type="hidden"/>
+              <button class="btn btn-outline-info btn-sm" type="submit">
+                <span class="material-symbols-outlined">save</span>
+              </button>
+            </div>
+          </form>
+        </div>
       </td>
 
       <td class="actions-cell">
         <!--Rename-->
-        <button class="btn btn-outline-info btn-sm" disabled>Rename</button>
-        <button class="btn btn-outline-warning btn-sm" disabled>Download</button>
+        <button class="btn btn-outline-info btn-sm rename-btn">
+          <span class="material-symbols-outlined">edit</span>
+        </button>
+        <!--Download-->
+        <button class="btn btn-outline-warning btn-sm" disabled>
+          <span class="material-symbols-outlined">download</span>
+        </button>
         <!--Delete-->
         <form th:action="@{/folder}" th:method="delete" th:object="${deleteRequest}">
           <input th:name="path" th:value="${file.getPath()}" type="hidden">
           <input th:name="ownerId" th:value="${userId}" type="hidden"/>
-          <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+          <button class="btn btn-outline-danger btn-sm" type="submit">
+            <span class="material-symbols-outlined">delete</span>
+          </button>
         </form>
       </td>
 
@@ -29,20 +50,43 @@
     <!--Files-->
     <tr th:each="file : ${files}" th:unless="${file.isDir()}">
       <td>
-        <span class="text-truncate" th:text="${file.getName()}"></span>
+        <div class="file-container">
+          <span class="text-truncate file-name" th:text="${file.getName()}"></span>
+
+          <!-- Rename Input (Hidden by Default) -->
+          <form th:action="@{/file}" th:method="put" th:object="${renameRequest}" class="rename-form w-75 d-none">
+            <div class="input-group">
+              <input type="text" th:name="newPath" th:value="${file.getPath()}" class="form-control rename-input"
+                   aria-label="Rename file">
+              <input th:name="path" th:value="${file.getPath()}" type="hidden">
+              <input th:name="ownerId" th:value="${userId}" type="hidden"/>
+              <button class="btn btn-outline-info btn-sm" type="submit">
+                <span class="material-symbols-outlined">save</span>
+              </button>
+            </div>
+          </form>
+        </div>
       </td>
       <td class="actions-cell">
         <!--Rename-->
-        <button class="btn btn-outline-info btn-sm" disabled>Rename</button>
-        <button class="btn btn-outline-warning btn-sm" disabled>Download</button>
+        <button class="btn btn-outline-info btn-sm rename-btn" type="submit">
+          <span class="material-symbols-outlined">edit</span>
+        </button>
+        <!--Download-->
+        <button class="btn btn-outline-warning btn-sm" disabled>
+          <span class="material-symbols-outlined">download</span>
+        </button>
         <!--Delete-->
         <form th:action="@{/file}" th:method="delete" th:object="${deleteRequest}">
           <input th:name="path" th:value="${file.getPath()}" type="hidden">
           <input th:name="ownerId" th:value="${userId}" type="hidden"/>
-          <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+          <button class="btn btn-outline-danger btn-sm" type="submit">
+            <span class="material-symbols-outlined">delete</span>
+          </button>
         </form>
       </td>
     </tr>
     </tbody>
   </table>
 </div>
+

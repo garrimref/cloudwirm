@@ -29,9 +29,11 @@ public class FileController {
             throw new RuntimeException("Problem with file persist binding");
         }
         fileService.persistFile(filePersistRequest);
+        // TODO: add a func to persist in specific folder
 
         redirectAttributes.addFlashAttribute("success", "File uploaded successfully");
         return new RedirectView("/");
+
     }
 
     @DeleteMapping
@@ -48,7 +50,7 @@ public class FileController {
     }
 
     @PutMapping
-    public RedirectView renameFile(@Valid @ModelAttribute("objectRenameRequest") S3RenameObjectRequest renameObjectRequest,
+    public RedirectView renameFile(@Valid @ModelAttribute("renameRequest") S3RenameObjectRequest renameObjectRequest,
                                    BindingResult bindingResult,
                                    RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {

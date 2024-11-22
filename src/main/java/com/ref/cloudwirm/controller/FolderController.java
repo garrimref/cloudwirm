@@ -28,6 +28,7 @@ public class FolderController {
             throw new RuntimeException("Problem with folder persist binding");
         }
         folderStorageService.persistFolder(folderPersistRequest);
+        // TODO: add a func to persist in specific folder
 
         redirectAttributes.addFlashAttribute("success", "Folder uploaded successfully");
         return new RedirectView("/");
@@ -47,7 +48,7 @@ public class FolderController {
     }
 
     @PutMapping
-    public RedirectView renameFolder(@Valid @ModelAttribute("objectRenameRequest") S3RenameObjectRequest renameObjectRequest,
+    public RedirectView renameFolder(@Valid @ModelAttribute("renameRequest") S3RenameObjectRequest renameObjectRequest,
                                    BindingResult bindingResult,
                                    RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
