@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
-@RequestMapping("/file")
+@RequestMapping("/files")
 public class FileController {
 
     private final FileStorageService fileService;
