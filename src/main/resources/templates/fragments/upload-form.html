@@ -8,7 +8,7 @@
         <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
       </div>
       <div class="modal-body">
-        <form enctype="multipart/form-data" id="fileUploadForm" method="post" th:action="@{/file}"
+        <form enctype="multipart/form-data" id="fileUploadForm" method="post" th:action="@{/files}"
               th:object="${filePersistRequest}">
           <label class="form-label" for="fileUploadInput">Select file</label>
           <input class="form-control" id="fileUploadInput" th:field="*{file}" type="file"/>
@@ -32,7 +32,7 @@
       </div>
 
       <div class="modal-body">
-        <form enctype="multipart/form-data" id="folderUploadForm" method="post" th:action="@{/folder}"
+        <form enctype="multipart/form-data" id="folderUploadForm" method="post" th:action="@{/folders}"
               th:object="${folderPersistRequest}">
           <label class="form-label" for="folderUploadInput">Select folder</label>
           <input class="form-control" id="folderUploadInput" th:field="*{files}" type="file" webkitdirectory/>
