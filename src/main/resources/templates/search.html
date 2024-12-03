@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Cloudwirm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/file-list.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=cloud_upload,create_new_folder,delete,download,draft,drive_file_move,drive_folder_upload,edit,filter_drama,folder,save,search,upload_file&display=block" />
+    <script th:src="@{/js/rename.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body class="container">
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div th:if="${searchResults.isEmpty()}">
+    <p class="h1">Nothing was found for your request.</p>
+</div>
+
+<div th:unless="${searchResults.isEmpty()}">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col" class="col-flex">Name</th>
+            <th scope="col" class="col-min text-right">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Folders -->
+        <tr th:each="file : ${searchResults}" th:if="${file.isDir()}">
+            <td>
+                <div class="file-container">
+                    <span class="material-symbols-outlined">folder</span>
+                    <a class="text-decoration-none text-truncate file-name" th:href="@{'/?path=' + ${file.getPath()}}"
+                       th:text="${file.getName()}"></a>
+                </div>
+            </td>
+
+            <td class="actions-cell">
+                <a class="btn btn-outline-info btn-sm" th:href="@{'/?path=' + ${file.getPath()}}">
+                    <span class="material-symbols-outlined">drive_file_move</span>
+                </a>
+            </td>
+
+        </tr>
+        <!--Files-->
+        <tr th:each="file : ${searchResults}" th:unless="${file.isDir()}">
+            <td>
+                <div class="file-container">
+                    <span class="material-symbols-outlined">draft</span>
+                    <span class="text-truncate file-name" th:text="${file.getName()}"></span>
+                </div>
+            </td>
+            <td class="actions-cell">
+                <a class="btn btn-outline-info btn-sm" th:href="@{'/?path=' + ${file.getPath()}}">
+                    <span class="material-symbols-outlined">drive_file_move</span>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
