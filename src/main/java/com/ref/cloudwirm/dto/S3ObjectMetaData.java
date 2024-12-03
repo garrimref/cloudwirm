@@ -1,5 +1,7 @@
 package com.ref.cloudwirm.dto;
 
+import java.util.Objects;
+
 public class S3ObjectMetaData {
     private String path;
     private String name;
@@ -11,6 +13,34 @@ public class S3ObjectMetaData {
         this.name = name;
         this.isDir = isDir;
         this.folderPrefix = folder;
+    }
+
+    public S3ObjectMetaData(String path, String name, boolean isDir) {
+        this.path = path;
+        this.name = name;
+        this.isDir = isDir;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        S3ObjectMetaData that = (S3ObjectMetaData) o;
+
+        if (isDir != that.isDir) return false;
+        if (!Objects.equals(path, that.path)) return false;
+        if (!name.equals(that.name)) return false;
+        return Objects.equals(folderPrefix, that.folderPrefix);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = path != null ? path.hashCode() : 0;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + (isDir ? 1 : 0);
+        result = 31 * result + (folderPrefix != null ? folderPrefix.hashCode() : 0);
+        return result;
     }
 
     public String getName() {
