@@ -33,10 +33,6 @@
         <button class="btn btn-outline-info btn-sm rename-btn">
           <span class="material-symbols-outlined">edit</span>
         </button>
-        <!--Download-->
-        <button class="btn btn-outline-warning btn-sm" disabled>
-          <span class="material-symbols-outlined">download</span>
-        </button>
         <!--Delete-->
         <form th:action="@{/folders}" th:method="delete" th:object="${deleteRequest}">
           <input th:name="path" th:value="${file.getPath()}" type="hidden">
@@ -75,9 +71,15 @@
           <span class="material-symbols-outlined">edit</span>
         </button>
         <!--Download-->
-        <button class="btn btn-outline-warning btn-sm" disabled>
-          <span class="material-symbols-outlined">download</span>
-        </button>
+        <form th:action="@{/files}" th:method="get" th:object="${downloadRequest}">
+          <input th:name="path" th:value="${file.getPath()}" type="hidden">
+          <input th:name="name" th:value="${file.getName()}" type="hidden">
+          <input th:name="ownerId" th:value="${userId}" type="hidden"/>
+          <button class="btn btn-outline-warning btn-sm">
+            <span class="material-symbols-outlined">download</span>
+          </button>
+        </form>
+
         <!--Delete-->
         <form th:action="@{/files}" th:method="delete" th:object="${deleteRequest}">
           <input th:name="path" th:value="${file.getPath()}" type="hidden">

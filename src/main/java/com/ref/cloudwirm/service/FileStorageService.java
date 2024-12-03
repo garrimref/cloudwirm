@@ -1,15 +1,18 @@
 package com.ref.cloudwirm.service;
 
-import com.ref.cloudwirm.dto.S3PersistFileObjectRequest;
-import com.ref.cloudwirm.dto.S3ObjectMetaData;
-import com.ref.cloudwirm.dto.S3DeleteObjectRequest;
-import com.ref.cloudwirm.dto.S3RenameObjectRequest;
+import com.ref.cloudwirm.dto.*;
 import com.ref.cloudwirm.utils.S3ObjectUtils;
 import io.minio.*;
+import io.minio.errors.*;
 import io.minio.messages.Item;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +54,19 @@ public class FileStorageService  {
                             .build());
         } catch (Exception e) {
             throw new RuntimeException("Failed to delete an Object", e);
+        }
+    }
+
+    public ByteArrayResource downloadFile(S3DownloadObjectRequest request) {
+        try (InputStream stream = minioClient.getObject(
+                GetObjectArgs.builder()
+                        .bucket(bucket)
+                        .object(S3ObjectUtils.getUserRootFolderPrefix(request.getOwnerId()) + request.getPath())
+                        .build())) {
+            return new ByteArrayResource(stream.readAllBytes());
+        }
+        catch (Exception e) {
+            throw new RuntimeException("There is an error while downloading the file, try again later");
         }
     }
 
