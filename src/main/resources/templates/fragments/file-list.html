@@ -11,6 +11,7 @@
     <tr th:each="file : ${files}" th:if="${file.isDir()}">
       <td>
         <div class="file-container">
+          <span class="material-symbols-outlined">folder</span>
           <a class="text-decoration-none text-truncate file-name" th:href="@{'/?path=' + ${file.getPath()}}" th:text="${file.getName()}"></a>
           <!-- Rename Input (Hidden by Default) -->
           <form th:action="@{/folders}" th:method="put" th:object="${renameRequest}" class="rename-form w-75 d-none">
@@ -51,6 +52,7 @@
     <tr th:each="file : ${files}" th:unless="${file.isDir()}">
       <td>
         <div class="file-container">
+          <span class="material-symbols-outlined">draft</span>
           <span class="text-truncate file-name" th:text="${file.getName()}"></span>
 
           <!-- Rename Input (Hidden by Default) -->

@@ -1,17 +1,20 @@
 <header class="d-flex flex-wrap justify-content-center py-3 mb-4 mx-2 border-bottom"
         xmlns:sec="http://www.w3.org/1999/xhtml">
   <a th:href="@{/}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+    <span class="material-symbols-outlined" style="font-size: 48px; font-variation-settings: 'OPSZ' 48;">filter_drama</span>
     <span class="fs-4">Cloudwirm Storage</span>
   </a>
 
   <div class="d-flex align-items-center mb-md-0 me-md-auto" sec:authorize="isAuthenticated()">
     <div class="input-group">
-      <form th:action="@{/search}" method="get" class="form-inline">
-        <input type="text" required th:name="query" placeholder="Search" class="form-control">
-        <input th:name="ownerId" type="hidden"/>
+      <form th:action="@{/search}" method="get" id="formQuery" class="form-inline">
+        <input type="text" required th:name="query" placeholder="Search" class="form-control" th:if="${previousQuery == null}">
+        <input type="text" required th:name="query" placeholder="Search" class="form-control" th:if="${previousQuery != null}" th:value="${previousQuery}">
       </form>
       <div class="input-group-append">
-        <button type="submit" class="btn btn-outline-secondary">Search</button>
+        <button type="submit" form="formQuery" class="btn btn-outline-secondary">
+          <span class="material-symbols-outlined" style="font-size: 18px">search</span>
+        </button>
       </div>
     </div>
   </div>
