@@ -25,13 +25,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @Testcontainers
-@ActiveProfiles("test")
+@ActiveProfiles("dev")
 public class FileStorageServiceTest {
     private static final DockerImageName MINIO_IMAGE = DockerImageName.parse("quay.io/minio/minio");
-
     @Container
     static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:latest")
-            .withDatabaseName("cloudwirm_testdb")
+            .withDatabaseName("cloudwirm_db")
             .withUsername("root")
             .withPassword("admin");
 
@@ -41,11 +40,12 @@ public class FileStorageServiceTest {
         registry.add("spring.datasource.username", mySQLContainer::getUsername);
         registry.add("spring.datasource.password", mySQLContainer::getPassword);
     }
+
     private static final GenericContainer<?> minio = new GenericContainer<>(MINIO_IMAGE)
             .withExposedPorts(9000, 9001)
             .withEnv("MINIO_ROOT_USER", "testuser")
             .withEnv("MINIO_ROOT_PASSWORD", "testpassword")
-            .withCommand("server /data");
+            .withCommand("server /data --console-address :9001");
     @DynamicPropertySource
     static void minioProperties(DynamicPropertyRegistry registry) {
         registry.add("minio.endpoint", () -> "http://" + minio.getHost() + ":" + minio.getMappedPort(9000));

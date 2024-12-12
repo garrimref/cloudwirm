@@ -1,0 +1,35 @@
+services:
+  mysql:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'cloudwirm_db'
+      MYSQL_ROOT_PASSWORD: 'admin'
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  minio:
+    image: quay.io/minio/minio
+    restart: always
+    command: server /data --console-address ":9001"
+    environment:
+      - MINIO_ROOT_USER=minioroot
+      - MINIO_ROOT_PASSWORD=miniopassword
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - minio_storage:/data
+
+  redis:
+    image: redis
+    restart: always
+    command: redis-server
+    ports:
+      - '6379:6379'
+
+volumes:
+  mysql-data:
+  minio_storage:

@@ -10,7 +10,8 @@
 
 	<groupId>com.ref</groupId>
 	<artifactId>cloudwirm</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
 	<name>cloudwirm</name>
 	<description>cloudFileStorage</description>
 
@@ -72,22 +73,22 @@
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>testcontainers</artifactId>
-			<scope>test</scope>
+			<version>1.20.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<scope>test</scope>
+			<version>1.20.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>mysql</artifactId>
-			<scope>test</scope>
+			<version>1.20.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>minio</artifactId>
-			<scope>test</scope>
+			<version>1.20.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

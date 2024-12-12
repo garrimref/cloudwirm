@@ -21,12 +21,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Testcontainers
-@ActiveProfiles("test")
+@ActiveProfiles("dev")
 public class UserServiceTest {
     private static final DockerImageName MINIO_IMAGE = DockerImageName.parse("quay.io/minio/minio");
     @Container
     static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:latest")
-            .withDatabaseName("cloudwirm_testdb")
+            .withDatabaseName("cloudwirm_db")
             .withUsername("root")
             .withPassword("admin");
 

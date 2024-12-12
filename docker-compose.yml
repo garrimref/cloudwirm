@@ -1,27 +1,33 @@
 services:
+  cloudwirm:
+    image: cloudwirm
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - redis
+      - minio
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql:3306/cloudwirm_db'
+      SPRING_DATASOURCE_USERNAME: 'datamysql'
+      SPRING_DATASOURCE_PASSWORD: 'gkfRFFdp15g56dfpgm324pkGFHNNf45'
+      REDIS_HOST: 'redis'
+      REDIS_PORT: '6379'
+      MINIO_ENDPOINT: 'http://minio:9000'
+      MINIO_ACCESS_KEY: 'minioroot'
+      MINIO_SECRET_KEY: 'fdgjFOIdfFD8435FHdjf5HF23Ffds'
+
   mysql:
     image: mysql
     restart: always
     environment:
       MYSQL_DATABASE: 'cloudwirm_db'
-      MYSQL_ROOT_PASSWORD: 'admin'
+      MYSQL_ROOT_USERNAME: 'datamysql'
+      MYSQL_ROOT_PASSWORD: 'gkfRFFdp15g56dfpgm324pkGFHNNf45'
     ports:
       - '3306:3306'
     volumes:
       - mysql-data:/var/lib/mysql
-
-  minio:
-    image: quay.io/minio/minio
-    restart: always
-    command: server /data --console-address ":9001"
-    environment:
-      - MINIO_ROOT_USER=minioroot
-      - MINIO_ROOT_PASSWORD=miniopassword
-    ports:
-      - '9000:9000'
-      - '9001:9001'
-    volumes:
-      - minio_storage:/data
 
   redis:
     image: redis
@@ -29,6 +35,18 @@ services:
     command: redis-server
     ports:
       - '6379:6379'
+
+  minio:
+    image: quay.io/minio/minio
+    command: server /data --console-address ":9001"
+    restart: always
+    environment:
+      - MINIO_ROOT_USER=minioroot
+      - MINIO_ROOT_PASSWORD=fdgjFOIdfFD8435FHdjf5HF23Ffds
+    ports:
+      - '9000:9000'
+    volumes:
+      - minio_storage:/data
 
 volumes:
   mysql-data:
